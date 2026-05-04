@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f9b8e, #1fc8db);
+}
+
+/* CONTENEDOR */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CAJA */
+.login-box {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.6s ease;
+}
+
+/* TITULO */
+.login-box h2 {
+  margin-bottom: 5px;
+  color: #0f9b8e;
+}
+
+.mensaje {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* SUBTITULO */
+.subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.login-box input:focus {
+  border-color: #0f9b8e;
+  box-shadow: 0 0 5px rgba(15, 155, 142, 0.3);
+}
+
+/* BOTON */
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #0f9b8e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background: #0c7f74;
+}
+
+/* ANIMACION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

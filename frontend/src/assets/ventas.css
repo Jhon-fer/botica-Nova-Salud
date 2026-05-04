@@ -1,0 +1,75 @@
+.ventas-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* GRID */
+.ventas-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+/* PRODUCTOS */
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.producto-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.producto-card button {
+  margin-top: 10px;
+  background: #0f9b8e;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* CARRITO */
+.carrito {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.carrito-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* BOTON FINAL */
+.btn-finalizar {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  background: #1fc8db;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-finalizar:hover {
+  background: #0f9b8e;
+}
+
+.alertas {
+  background: #fff3cd;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  color: #856404;
+}
