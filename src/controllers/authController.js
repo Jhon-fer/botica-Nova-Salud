@@ -113,7 +113,13 @@ export const getUsuarios = async (req, res) => {
 export const updateUsuario = async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, email, rol } = req.body;
+
+    const {
+      username,
+      email,
+      rol,
+      password
+    } = req.body;
 
     const [rows] = await pool.query(
       "SELECT * FROM Usuarios WHERE id = ?",
@@ -124,12 +130,27 @@ export const updateUsuario = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    await pool.query(
-      "UPDATE Usuarios SET username=?, email=?, rol=? WHERE id=?",
-      [username, email, rol, id]
-    );
+    // 🔥 SI VIENE PASSWORD, LA ENCRIPTAMOS
+    let passwordHash = null;
 
-    res.json({ message: "Usuario actualizado" });
+    if (password && password.trim() !== "") {
+      passwordHash = await bcrypt.hash(password, 10);
+    }
+
+    // 🔥 UPDATE DINÁMICO
+    if (passwordHash) {
+      await pool.query(
+        "UPDATE Usuarios SET username=?, email=?, rol=?, password=? WHERE id=?",
+        [username, email, rol, passwordHash, id]
+      );
+    } else {
+      await pool.query(
+        "UPDATE Usuarios SET username=?, email=?, rol=? WHERE id=?",
+        [username, email, rol, id]
+      );
+    }
+
+    res.json({ message: "Usuario actualizado correctamente" });
 
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -2,6 +2,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Ventas from "./pages/Ventas";
 import Productos from "./pages/Productos";
+import Dashboard from "./pages/Dashboard";
+import SuperAdmin from "./pages/SuperAdmin"; // 👈 correcto
 
 function App() {
   const token = localStorage.getItem("token");
@@ -19,10 +21,10 @@ function App() {
       return <Productos />;
 
     case "admin":
-      return <Productos />;
+      return <Dashboard />;
 
     case "superadmin":
-      return <Home />;
+      return <SuperAdmin />; // 👈 AQUÍ VA BIEN
 
     default:
       return <Login />;

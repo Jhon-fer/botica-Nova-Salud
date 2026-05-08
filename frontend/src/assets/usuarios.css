@@ -1,0 +1,311 @@
+/* =========================
+   VARIABLES
+========================= */
+:root {
+  --primary: #0f9b8e;
+  --primary-dark: #0c7c72;
+  --danger: #ff4d4d;
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --text: #1f1f1f;
+  --muted: #6b6b6b;
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+.productos-container {
+  padding: 35px;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #3fc1b0, #2fb3a3);
+}
+
+/* =========================
+   TITULO
+========================= */
+.titulo-seccion {
+  font-size: 30px;
+  font-weight: 900;
+  color: #0b2f2c;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   BOTÓN AGREGAR
+========================= */
+.btn-agregar {
+  background: linear-gradient(135deg, var(--primary), #12b8a8);
+  color: white;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 25px;
+  transition: 0.25s ease;
+  box-shadow: 0 8px 20px rgba(15,155,142,0.25);
+}
+
+.btn-agregar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(15,155,142,0.35);
+}
+
+/* =========================
+   FILTROS
+========================= */
+.filtros-usuarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filtros-usuarios button {
+  background: rgba(255,255,255,0.85);
+  border: none;
+  padding: 9px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primary-dark);
+  transition: 0.2s;
+}
+
+.filtros-usuarios button:hover {
+  transform: translateY(-2px);
+  background: #fff;
+}
+
+/* =========================
+   GRID
+========================= */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 24px;
+}
+
+/* =========================
+   CARD USUARIO
+========================= */
+.producto-card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: 0.3s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-8px);
+}
+
+/* HEADER CARD */
+.producto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.producto-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ROL */
+.precio {
+  background: rgba(15,155,142,0.12);
+  color: var(--primary-dark);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* =========================
+   ACCIONES
+========================= */
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-editar,
+.btn-eliminar {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-editar {
+  background: #ffb300;
+}
+
+.btn-eliminar {
+  background: var(--danger);
+  color: white;
+}
+
+/* =========================
+   MODAL (GLASS MODERNO)
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  z-index: 999;
+  animation: fadeIn 0.25s ease;
+}
+
+/* caja */
+.modal-content {
+  width: 460px;
+  max-width: 92%;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: modalPop 0.25s ease;
+  position: relative;
+}
+
+/* barra superior decorativa */
+.modal-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), #12b8a8);
+  border-radius: 22px 22px 0 0;
+}
+
+/* título */
+.modal-content h2 {
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.modal-content input,
+.modal-content select {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #e8e8e8;
+  background: #f9f9f9;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(15,155,142,0.12);
+}
+
+/* =========================
+   PASSWORD SECTION MEJORADA
+========================= */
+.password-section {
+  background: #f7fdfc;
+  border: 1px solid rgba(15,155,142,0.15);
+  padding: 14px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.password-section h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.password-info {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* botón ver password */
+.btn-ver-password {
+  background: rgba(15,155,142,0.12);
+  color: var(--primary-dark);
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* =========================
+   BOTONES MODAL
+========================= */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* cancelar */
+.modal-actions button:first-child {
+  background: #e0e0e0;
+}
+
+/* guardar */
+.modal-actions button:last-child {
+  background: linear-gradient(135deg, var(--primary), #12b8a8);
+  color: white;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPop {
+  from {
+    transform: translateY(25px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}

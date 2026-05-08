@@ -1,0 +1,260 @@
+/* =========================
+   VARIABLES (CONSISTENCIA)
+========================= */
+:root {
+  --primary: #0f9b8e;
+  --primary-dark: #0c7c72;
+  --danger: #ff4d4d;
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --text: #222;
+  --muted: #666;
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+.productos-container {
+  padding: 30px;
+  min-height: 100vh;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #3fc1b0, #2fb3a3);
+}
+
+.productos-container h1 {
+  font-size: 28px;
+  margin-bottom: 18px;
+  color: #111;
+}
+
+/* =========================
+   BOTÓN AGREGAR
+========================= */
+.btn-agregar {
+  background: var(--primary);
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 22px;
+  transition: 0.25s ease;
+  box-shadow: 0 6px 15px rgba(15,155,142,0.25);
+}
+
+.btn-agregar:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* =========================
+   GRID PRODUCTOS
+========================= */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* =========================
+   CARD PRODUCTO
+========================= */
+.producto-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  text-align: left;
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.producto-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+/* título */
+.producto-card h3 {
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+/* textos */
+.producto-card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* =========================
+   BOTONES PRODUCTO
+========================= */
+.acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.acciones button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 13px;
+}
+
+/* editar */
+.acciones button:first-child {
+  background: var(--primary);
+  color: white;
+}
+
+.acciones button:first-child:hover {
+  background: var(--primary-dark);
+}
+
+/* eliminar */
+.acciones button:last-child {
+  background: var(--danger);
+  color: white;
+}
+
+.acciones button:last-child:hover {
+  background: #d93a3a;
+}
+
+/* =========================
+   MODAL BACKDROP
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+/* =========================
+   MODAL CONTENT
+========================= */
+.modal-content {
+  background: white;
+  width: 420px;
+  max-width: 92%;
+  padding: 26px;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+  animation: slideUp 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* título */
+.modal-content h2 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+/* labels */
+.modal-content label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #444;
+}
+
+/* inputs */
+.modal-content input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  background: #fafafa;
+  outline: none;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.modal-content input:focus {
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(15,155,142,0.15);
+}
+
+/* =========================
+   BOTONES MODAL
+========================= */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* cancelar */
+.modal-actions button:first-child {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.modal-actions button:first-child:hover {
+  background: #cfcfcf;
+}
+
+/* guardar */
+.modal-actions button:last-child {
+  background: linear-gradient(135deg, var(--primary), #12b8a8);
+  color: white;
+  box-shadow: 0 8px 20px rgba(15,155,142,0.25);
+}
+
+.modal-actions button:last-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15,155,142,0.35);
+}
+
+.modal-actions button:active {
+  transform: scale(0.97);
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

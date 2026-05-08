@@ -1,0 +1,246 @@
+/* =========================
+   VARIABLES
+========================= */
+:root {
+  --primary: #0f9b8e;
+  --primary-dark: #0c7c72;
+  --danger: #ff4d4d;
+  --card: #ffffff;
+  --text: #222;
+  --muted: #666;
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   CONTENEDOR GENERAL
+========================= */
+.productos-container {
+  padding: 30px;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(135deg, #3fc1b0, #2fb3a3);
+}
+
+/* =========================
+   HEADER SUPERADMIN
+========================= */
+.header-superadmin {
+  text-align: center;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* TITULO PRINCIPAL */
+.titulo-main {
+  font-size: 38px;
+  font-weight: 900;
+  color: #062f2c;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* SUB HEADER */
+.sub-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ROL */
+.rol {
+  font-size: 13px;
+  background: rgba(15,155,142,0.2);
+  color: #0f9b8e;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* LOGOUT */
+.btn-logout {
+  background: transparent;
+  border: 2px solid var(--danger);
+  color: var(--danger);
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-logout:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* TITULO SECCION */
+.titulo-seccion {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0b2f2c;
+}
+
+/* =========================
+   BOTÓN AGREGAR (UNIFICADO)
+========================= */
+.btn-agregar {
+  background: linear-gradient(135deg, #0f9b8e, #12b8a8);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 6px 15px rgba(15,155,142,0.25);
+}
+
+.btn-agregar:hover {
+  transform: translateY(-3px);
+}
+
+/* =========================
+   GRID
+========================= */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+.producto-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  transition: 0.25s ease;
+}
+
+.producto-card:hover {
+  transform: translateY(-6px);
+}
+
+/* HEADER CARD */
+.producto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.producto-card h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* PRECIO */
+.precio {
+  font-weight: bold;
+  color: green;
+}
+
+/* INFO */
+.producto-info p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* =========================
+   BOTONES
+========================= */
+.acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-editar,
+.btn-eliminar {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-editar {
+  background: #ffb300;
+}
+
+.btn-eliminar {
+  background: var(--danger);
+  color: white;
+}
+
+/* =========================
+   MODAL
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  background: white;
+  width: 420px;
+  padding: 26px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* INPUTS */
+.modal-content input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+}
+
+/* BOTONES MODAL */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+}
+
+.modal-actions button:first-child {
+  background: #e0e0e0;
+}
+
+.modal-actions button:last-child {
+  background: linear-gradient(135deg, var(--primary), #12b8a8);
+  color: white;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

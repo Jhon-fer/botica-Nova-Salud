@@ -7,6 +7,7 @@ import {
 import Navbar from "../components/Navbar";
 import "../assets/ventas.css";
 
+
 function Ventas() {
   const [productos, setProductos] = useState([]);
   const [carrito, setCarrito] = useState([]);
