@@ -9,22 +9,27 @@ export const getProductos = async (req, res) => {
 
     const data = rows.map(p => ({
       ...p,
+
+      // ✅ FORMATO PARA INPUT DATE
       vencimiento: p.vencimiento
-        ? new Date(p.vencimiento).toLocaleDateString("es-PE")
+        ? new Date(p.vencimiento).toISOString().split("T")[0]
         : null,
+
+      // ✅ FECHA BONITA SOLO PARA VISUALIZAR
       created_at: p.created_at
         ? new Date(p.created_at).toLocaleString("es-PE")
         : null
     }));
 
     res.json(data);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 /* =========================
-   🔍 OBTENER POR ID
+   🔍 OBTENER PRODUCTO POR ID
 ========================= */
 export const getProductoById = async (req, res) => {
   try {
@@ -36,16 +41,21 @@ export const getProductoById = async (req, res) => {
     );
 
     if (rows.length === 0) {
-      return res.status(404).json({ message: "Producto no encontrado" });
+      return res.status(404).json({
+        message: "Producto no encontrado"
+      });
     }
 
     const producto = rows[0];
 
     res.json({
       ...producto,
+
+      // ✅ FORMATO PARA INPUT DATE
       vencimiento: producto.vencimiento
-        ? new Date(producto.vencimiento).toLocaleDateString("es-PE")
+        ? new Date(producto.vencimiento).toISOString().split("T")[0]
         : null,
+
       created_at: producto.created_at
         ? new Date(producto.created_at).toLocaleString("es-PE")
         : null
@@ -61,14 +71,26 @@ export const getProductoById = async (req, res) => {
 ========================= */
 export const createProducto = async (req, res) => {
   try {
-    const { nombre, precio, stock, vencimiento } = req.body;
+    const {
+      nombre,
+      precio,
+      stock,
+      vencimiento
+    } = req.body;
 
     await pool.query(
-      "INSERT INTO Productos (nombre, precio, stock, vencimiento, created_at) VALUES (?,?,?,?, NOW())",
+      `
+      INSERT INTO Productos
+      (nombre, precio, stock, vencimiento, created_at)
+      VALUES (?, ?, ?, ?, NOW())
+      `,
       [nombre, precio, stock, vencimiento]
     );
 
-    res.json({ message: "Producto creado correctamente" });
+    res.json({
+      message: "Producto creado correctamente"
+    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -80,14 +102,31 @@ export const createProducto = async (req, res) => {
 export const updateProducto = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, precio, stock, vencimiento } = req.body;
+
+    const {
+      nombre,
+      precio,
+      stock,
+      vencimiento
+    } = req.body;
 
     await pool.query(
-      "UPDATE Productos SET nombre=?, precio=?, stock=?, vencimiento=? WHERE id=?",
+      `
+      UPDATE Productos
+      SET
+        nombre = ?,
+        precio = ?,
+        stock = ?,
+        vencimiento = ?
+      WHERE id = ?
+      `,
       [nombre, precio, stock, vencimiento, id]
     );
 
-    res.json({ message: "Producto actualizado" });
+    res.json({
+      message: "Producto actualizado correctamente"
+    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -100,16 +139,22 @@ export const deleteProducto = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await pool.query("DELETE FROM Productos WHERE id=?", [id]);
+    await pool.query(
+      "DELETE FROM Productos WHERE id = ?",
+      [id]
+    );
 
-    res.json({ message: "Producto eliminado" });
+    res.json({
+      message: "Producto eliminado correctamente"
+    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 /* =========================
-   🔎 BÚSQUEDA (ATENCIÓN AL CLIENTE)
+   🔎 BUSCAR PRODUCTOS
 ========================= */
 export const buscarProductos = async (req, res) => {
   try {
@@ -122,12 +167,15 @@ export const buscarProductos = async (req, res) => {
 
     const data = rows.map(p => ({
       ...p,
+
+      // ✅ FORMATO PARA INPUT DATE
       vencimiento: p.vencimiento
-        ? new Date(p.vencimiento).toLocaleDateString("es-PE")
+        ? new Date(p.vencimiento).toISOString().split("T")[0]
         : null
     }));
 
     res.json(data);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
