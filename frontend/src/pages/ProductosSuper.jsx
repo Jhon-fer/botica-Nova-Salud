@@ -10,6 +10,7 @@ import {
 } from "../services/api";
 
 function ProductosSuper() {
+
   const [productos, setProductos] = useState([]);
   const [creandoProducto, setCreandoProducto] = useState(false);
   const [editandoProducto, setEditandoProducto] = useState(null);
@@ -21,24 +22,40 @@ function ProductosSuper() {
     vencimiento: ""
   });
 
+  // ✅ FECHA ACTUAL PARA VALIDACIONES
+  const fechaActual = new Date().toISOString().split("T")[0];
+
   // =========================
   // FORMATEAR FECHA BONITA
   // =========================
   const formatearFechaBonita = (fecha) => {
+
     if (!fecha) return "Sin fecha";
 
     const meses = [
-      "enero", "febrero", "marzo", "abril", "mayo", "junio",
-      "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre"
     ];
 
     let d, m, y;
 
     if (fecha.includes("-")) {
       [y, m, d] = fecha.split("-");
-    } else if (fecha.includes("/")) {
+    }
+    else if (fecha.includes("/")) {
       [d, m, y] = fecha.split("/");
-    } else {
+    }
+    else {
       return fecha;
     }
 
@@ -49,9 +66,18 @@ function ProductosSuper() {
   // CARGAR PRODUCTOS
   // =========================
   const cargarDatos = async () => {
+
     try {
+
       const res = await getProductos();
-      setProductos(res?.data?.productos || res?.data || res || []);
+
+      setProductos(
+        res?.data?.productos ||
+        res?.data ||
+        res ||
+        []
+      );
+
     } catch (err) {
       console.error(err);
     }
@@ -62,102 +88,181 @@ function ProductosSuper() {
   }, []);
 
   // =========================
-  // CREAR
+  // CREAR PRODUCTO
   // =========================
   const guardarProducto = async () => {
-    await crearProducto({
-      ...nuevoProducto,
-      precio: Number(nuevoProducto.precio),
-      stock: Number(nuevoProducto.stock)
-    });
 
-    await cargarDatos();
+    // ✅ VALIDAR FECHA
+    if (nuevoProducto.vencimiento < fechaActual) {
+      alert("La fecha no puede ser anterior a hoy");
+      return;
+    }
 
-    setNuevoProducto({
-      nombre: "",
-      precio: "",
-      stock: "",
-      vencimiento: ""
-    });
+    try {
 
-    setCreandoProducto(false);
+      await crearProducto({
+        ...nuevoProducto,
+        precio: Number(nuevoProducto.precio),
+        stock: Number(nuevoProducto.stock)
+      });
+
+      await cargarDatos();
+
+      setNuevoProducto({
+        nombre: "",
+        precio: "",
+        stock: "",
+        vencimiento: ""
+      });
+
+      setCreandoProducto(false);
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // =========================
-  // EDITAR
+  // EDITAR PRODUCTO
   // =========================
   const guardarEdicion = async () => {
-    await actualizarProducto(editandoProducto.id, {
-      ...editandoProducto,
-      precio: Number(editandoProducto.precio),
-      stock: Number(editandoProducto.stock)
-    });
 
-    await cargarDatos();
-    setEditandoProducto(null);
+    // ✅ VALIDAR FECHA
+    if (editandoProducto.vencimiento < fechaActual) {
+      alert("La fecha no puede ser anterior a hoy");
+      return;
+    }
+
+    try {
+
+      await actualizarProducto(editandoProducto.id, {
+        ...editandoProducto,
+        precio: Number(editandoProducto.precio),
+        stock: Number(editandoProducto.stock)
+      });
+
+      await cargarDatos();
+
+      setEditandoProducto(null);
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // =========================
-  // ELIMINAR
+  // ELIMINAR PRODUCTO
   // =========================
   const handleEliminar = async (id) => {
-    await eliminarProducto(id);
-    setProductos(prev => prev.filter(p => p.id !== id));
+
+    try {
+
+      await eliminarProducto(id);
+
+      setProductos(prev =>
+        prev.filter(p => p.id !== id)
+      );
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
+
     <div className="productos-container">
+
       <Navbar />
 
-      <h2 className="titulo-seccion">💊 Productos Superadmin</h2>
+      <h2 className="titulo-seccion">
+        💊 Productos Superadmin
+      </h2>
 
       <button
-      className="btn-agregar"
-      onClick={() => setCreandoProducto(true)}
+        className="btn-agregar"
+        onClick={() => setCreandoProducto(true)}
       >
-      ➕ Agregar Producto
+        ➕ Agregar Producto
       </button>
 
       {/* ================= GRID ================= */}
+
       <div className="productos-grid">
+
         {productos.map(p => (
-          <div key={p.id} className="producto-card">
+
+          <div
+            key={p.id}
+            className="producto-card"
+          >
 
             <div className="producto-header">
-              <h3>💊 {p.nombre}</h3>
-              <span className="precio">S/ {Number(p.precio).toFixed(2)}</span>
+
+              <h3>
+                💊 {p.nombre}
+              </h3>
+
+              <span className="precio">
+                S/ {Number(p.precio).toFixed(2)}
+              </span>
+
             </div>
 
             <div className="producto-info">
-              <p>📦 <b>Stock:</b> {p.stock}</p>
-              <p>📅 <b>Vence:</b> {formatearFechaBonita(p.vencimiento)}</p>
+
+              <p>
+                📦 <b>Stock:</b> {p.stock}
+              </p>
+
+              <p>
+                📅 <b>Vence:</b> {formatearFechaBonita(p.vencimiento)}
+              </p>
+
             </div>
 
             <div className="acciones">
-              <button className="btn-editar" onClick={() => setEditandoProducto(p)}>
+
+              <button
+                className="btn-editar"
+                onClick={() => setEditandoProducto(p)}
+              >
                 ✏️ Editar
               </button>
 
-              <button className="btn-eliminar" onClick={() => handleEliminar(p.id)}>
+              <button
+                className="btn-eliminar"
+                onClick={() => handleEliminar(p.id)}
+              >
                 ❌ Eliminar
               </button>
+
             </div>
 
           </div>
         ))}
+
       </div>
 
       {/* ================= CREAR ================= */}
+
       {creandoProducto && (
+
         <div className="modal">
+
           <div className="modal-content">
-            <h2>➕ Crear Producto</h2>
+
+            <h2>
+              ➕ Crear Producto
+            </h2>
 
             <input
               placeholder="Nombre"
               value={nuevoProducto.nombre}
               onChange={e =>
-                setNuevoProducto({ ...nuevoProducto, nombre: e.target.value })
+                setNuevoProducto({
+                  ...nuevoProducto,
+                  nombre: e.target.value
+                })
               }
             />
 
@@ -166,7 +271,10 @@ function ProductosSuper() {
               placeholder="Precio"
               value={nuevoProducto.precio}
               onChange={e =>
-                setNuevoProducto({ ...nuevoProducto, precio: e.target.value })
+                setNuevoProducto({
+                  ...nuevoProducto,
+                  precio: e.target.value
+                })
               }
             />
 
@@ -175,36 +283,67 @@ function ProductosSuper() {
               placeholder="Stock"
               value={nuevoProducto.stock}
               onChange={e =>
-                setNuevoProducto({ ...nuevoProducto, stock: e.target.value })
+                setNuevoProducto({
+                  ...nuevoProducto,
+                  stock: e.target.value
+                })
               }
             />
 
+            {/* ✅ FECHA NO MENOR A HOY */}
+
             <input
               type="date"
+              min={fechaActual}
               value={nuevoProducto.vencimiento}
               onChange={e =>
-                setNuevoProducto({ ...nuevoProducto, vencimiento: e.target.value })
+                setNuevoProducto({
+                  ...nuevoProducto,
+                  vencimiento: e.target.value
+                })
               }
             />
 
             <div className="modal-actions">
-              <button onClick={() => setCreandoProducto(false)}>Cancelar</button>
-              <button onClick={guardarProducto}>Guardar</button>
+
+              <button
+                onClick={() => setCreandoProducto(false)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={guardarProducto}
+              >
+                Guardar
+              </button>
+
             </div>
+
           </div>
+
         </div>
       )}
 
       {/* ================= EDITAR ================= */}
+
       {editandoProducto && (
+
         <div className="modal">
+
           <div className="modal-content">
-            <h2>✏️ Editar Producto</h2>
+
+            <h2>
+              ✏️ Editar Producto
+            </h2>
 
             <input
               value={editandoProducto.nombre}
               onChange={e =>
-                setEditandoProducto({ ...editandoProducto, nombre: e.target.value })
+                setEditandoProducto({
+                  ...editandoProducto,
+                  nombre: e.target.value
+                })
               }
             />
 
@@ -212,7 +351,10 @@ function ProductosSuper() {
               type="number"
               value={editandoProducto.precio}
               onChange={e =>
-                setEditandoProducto({ ...editandoProducto, precio: e.target.value })
+                setEditandoProducto({
+                  ...editandoProducto,
+                  precio: e.target.value
+                })
               }
             />
 
@@ -220,25 +362,48 @@ function ProductosSuper() {
               type="number"
               value={editandoProducto.stock}
               onChange={e =>
-                setEditandoProducto({ ...editandoProducto, stock: e.target.value })
+                setEditandoProducto({
+                  ...editandoProducto,
+                  stock: e.target.value
+                })
               }
             />
 
+            {/* ✅ FECHA NO MENOR A HOY */}
+
             <input
               type="date"
+              min={fechaActual}
               value={editandoProducto.vencimiento}
               onChange={e =>
-                setEditandoProducto({ ...editandoProducto, vencimiento: e.target.value })
+                setEditandoProducto({
+                  ...editandoProducto,
+                  vencimiento: e.target.value
+                })
               }
             />
 
             <div className="modal-actions">
-              <button onClick={() => setEditandoProducto(null)}>Cancelar</button>
-              <button onClick={guardarEdicion}>Guardar</button>
+
+              <button
+                onClick={() => setEditandoProducto(null)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={guardarEdicion}
+              >
+                Guardar
+              </button>
+
             </div>
+
           </div>
+
         </div>
       )}
+
     </div>
   );
 }
